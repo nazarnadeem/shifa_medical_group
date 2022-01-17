@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shifa_medical_group/model/prescription_model.dart';
 import 'package:shifa_medical_group/pages/image_picker.dart';
 import 'package:shifa_medical_group/pages/prescription_image_view.dart';
@@ -28,7 +29,9 @@ class _HomeState extends State<Home> {
 
   void init() async {
     isLoading.value = true;
-    await PrescriptionService.getPrescription().then((value) {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String userId = sharedPreferences.getInt('myId').toString();
+    await PrescriptionService.getPrescription(userId).then((value) {
       prescriptionModel = value;
       log('Sucessful --> ');
     });

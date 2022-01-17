@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shifa_medical_group/App_constant.dart';
 import 'package:shifa_medical_group/model/prescription_model.dart';
 import 'package:shifa_medical_group/pages/prescription_image_view.dart';
@@ -29,7 +30,9 @@ class _PrescriptionsState extends State<Prescriptions> {
 
   void init() async {
     isLoading.value = true;
-    await PrescriptionService.getPrescription().then((value) {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String userId = sharedPreferences.getInt('myId').toString();
+    await PrescriptionService.getPrescription(userId).then((value) {
       prescriptionModel = value;
     });
     isLoading.value = false;

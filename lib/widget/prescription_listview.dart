@@ -24,11 +24,7 @@ class PrescriptionListView extends StatelessWidget {
             formattedDate.indexOf(' '),
           )
               .toString();
-          final time = formattedDate
-              .substring(
-            formattedDate.indexOf(' ') + 1,
-          )
-              .toString();
+          final time = formattedDate.substring(formattedDate.indexOf(' ') + 1,).toString();
           Navigator.push(
             context,
             MaterialPageRoute(
