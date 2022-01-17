@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shifa_medical_group/pages/home.dart';
 import 'package:shifa_medical_group/pages/prescriptions.dart';
 import 'package:shifa_medical_group/utils/constants.dart';
+import 'edit_profile.dart';
 import 'login.dart';
 import 'package:http/http.dart' as http;
 
@@ -218,15 +219,19 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ),
-                    MaterialButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Edit Profile',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                    Center(
+                      child: MaterialButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfile()));
+                        },
+                        elevation: 0,
+                        child: Text(
+                          "Edit Profile",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        color: mainColor,
+                        textColor: Colors.white,
                       ),
-                      color: mainColor,
-                      textColor: Colors.white,
-                      padding: EdgeInsets.all(0),
                     ),
                   ],
                 );
