@@ -36,11 +36,13 @@ class Data {
   final String userName;
   final String userPhone;
   final String userAddress;
+  final String userImage;
 
   Data({
     @required this.userName,
     @required this.userPhone,
     @required this.userAddress,
+    @required this.userImage,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) {
@@ -48,6 +50,7 @@ class Data {
       userName: json['name'],
       userPhone: json['mobile'],
       userAddress: json['address'],
+      userImage: json['image'],
     );
   }
 }
@@ -161,7 +164,10 @@ class _ProfileState extends State<Profile> {
                       child: GestureDetector(
                         child: CircleAvatar(
                           maxRadius: 60,
-                          child: Image.asset('assets/images/profile.png'),
+                          child: Image.network(snapshot.data.userImage, errorBuilder: (context, error, stackTrace) {
+                            return Image.asset('assets/images/profile.png');
+                          },),
+
                         ),
                       ),
                     ),
