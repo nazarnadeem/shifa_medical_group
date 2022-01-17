@@ -7,6 +7,7 @@ import 'package:shifa_medical_group/model/prescription_model.dart';
 import 'package:shifa_medical_group/pages/prescription_image_view.dart';
 import 'package:shifa_medical_group/service/prescription_service.dart';
 import 'package:shifa_medical_group/utils/constants.dart';
+import 'package:shifa_medical_group/widget/prescription_listview.dart';
 
 import 'home.dart';
 import 'profile.dart';
@@ -115,37 +116,7 @@ class _PrescriptionsState extends State<Prescriptions> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : ListView.builder(
-                    itemCount: prescriptionModel.data.prescription.length,
-                    itemBuilder: (BuildContext context, int index) => SinglePrescription(
-                      prescription: "Prescription ${index + 1}",
-                      onTap: () {
-                        DateTime now = DateTime.parse(prescriptionModel.data.prescription[index].createdAt);
-                        String formattedDate = DateFormat('dd-MMM-yyyy  hh:mm a').format(now);
-                        final date = formattedDate
-                            .substring(
-                              0,
-                              formattedDate.indexOf(' '),
-                            )
-                            .toString();
-                        final time = formattedDate
-                            .substring(
-                              formattedDate.indexOf(' ') + 1,
-                            )
-                            .toString();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PrescriptionImageView(
-                              date: date,
-                              time: time,
-                              imagePath: AppConstant.prescriptionImagePath + prescriptionModel.data.prescription[index].prescription,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
+                :  PrescriptionListView(prescriptionModel: prescriptionModel,);
           },
         ),
       ),
@@ -153,33 +124,4 @@ class _PrescriptionsState extends State<Prescriptions> {
   }
 }
 
-class SinglePrescription extends StatelessWidget {
-  final prescription;
-  Function onTap;
 
-  SinglePrescription({this.prescription, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Card(
-            child: ListTile(
-              leading: Text(
-                prescription,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              trailing: Icon(
-                Icons.remove_red_eye,
-                color: Colors.green,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

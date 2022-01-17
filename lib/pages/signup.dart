@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shifa_medical_group/pages/login.dart';
@@ -20,6 +21,21 @@ class _SignupState extends State<Signup> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final addressController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    var random = Random.secure();
+
+    var values = List<int>.generate(4, (i) =>  random.nextInt(255));
+
+    nameController.text="Hello";
+    phoneController.text=values.join().toString();
+    passwordController.text="12345";
+    addressController.text="1233sdsd";
+
+  }
 
   Future registration() async {
     setState(() {
